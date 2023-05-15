@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Giải thuật Banker</title>
+    </head>
+    <body>
+        <h2>Giải thuật Banker</h2>
+
+        <label for="processes">Số lượng tiến trình:</label>
+        <select id="processes">
+            <!-- Sử dụng vòng lặp để tạo các tùy chọn từ 0 đến 10 -->
+            <script>
+                for (var i = 0; i <= 10; i++) {
+                    document.write('<option value="' + i + '">' + i + '</option>');
+                }
+            </script>
+        </select>
+
+        <br>
+
+        <label for="resources">Số lượng tài nguyên:</label>
+        <select id="resources">
+            <!-- Sử dụng vòng lặp để tạo các tùy chọn từ 0 đến 10 -->
+            <script>
+                for (var i = 0; i <= 10; i++) {
+                    document.write('<option value="' + i + '">' + i + '</option>');
+                }
+            </script>
+        </select>
+
+        <br>
+
+        <button onclick="createAllocation()">Allocation </button>
+
+        <table id="Allocation">
+        </table>
+
+        <button onclick="createRequest()">Request </button>
+
+        <table id="Request">
+        </table>
+
+        <button onclick="createAvailable()">Available</button>
+
+        <table id="Available">
+        </table>
+        
+        <button onclick="Banker()">Bắt đầu mô phỏng</button>
+
+        <div id="needTableContainer"></div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
