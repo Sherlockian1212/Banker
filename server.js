@@ -24,7 +24,17 @@ app.post("/api/calcNeed", (req, res) => {
   res.json({ need });
 });
 
+app.post("/api/banker", (req, res) => {
+  const P = req.body.P;
+  const R = req.body.R;
+  const request = req.body.request;
+  const allocation = req.body.allocation;
+  const available = req.body.available;
 
+  const result = Banker.isSafe(P, R, request, allocation, available);
+
+  res.json({ result });
+});
 
 
 app.listen(port, hostname, () => {

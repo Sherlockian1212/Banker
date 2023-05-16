@@ -191,6 +191,71 @@ function calculateNeed(P, R, request, allocation,) {
         });
 }
 
+function calcBanker(P, R, request, allocation, available) {
+    const apiUrl = "http://localhost:5501/api/banker";
+
+    fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            P,
+            R,
+            request,
+            allocation,
+            available,
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Processes", data.result); // Kết quả từ API
+        })
+        .catch((error) => {
+            console.error("Lỗi:", error);
+        });
+}
+
+
+function createTable(P, R) {
+    const tableContainer = document.getElementById("tableContainer");
+
+    while (tableContainer.firstChild) {
+        tableContainer.removeChild(tableContainer.firstChild);
+    }
+
+    const table = document.createElement("table");
+
+    const headerRow = document.createElement("tr");
+    const headerCell1 = document.createElement("th");
+    headerCell1.textContent = `Processes`;
+    headerRow.appendChild(headerCell1);
+    const headerCell2 = document.createElement("th");
+    headerCell2.textContent = `Allocation`;
+    headerRow.appendChild(headerCell2);
+    const headerCell3 = document.createElement("th");
+    headerCell3.textContent = `Request`;
+    headerRow.appendChild(headerCell3);
+    const headerCell4 = document.createElement("th");
+    headerCell4.textContent = `Available`;
+    headerRow.appendChild(headerCell4);
+    const headerCell5 = document.createElement("th");
+    headerCell5.textContent = `Need`;
+    headerRow.appendChild(headerCell5);
+    const headerCell6 = document.createElement("th");
+    headerCell6.textContent = `Progress order`;
+    headerRow.appendChild(headerCell6);
+
+    table.appendChild(headerRow);
+
+    // Thêm dữ liệu vào bảng
+
+
+    // Đưa bảng vào thẻ div
+    tableContainer.appendChild(table);
+}
+
+
 function Banker() {
     const P = parseInt(document.getElementById("processes").value);
     const R = parseInt(document.getElementById("resources").value);
@@ -198,5 +263,23 @@ function Banker() {
     const allocation = getAllocation();
     const available = getAvailable();
 
+    // P = 5; // Number of processes
+    // R = 3; // Number of resources
+    // let allocation = [[0, 1, 0], // P0 // Allocation Matrix
+    // [2, 0, 0], // P1
+    // [3, 0, 2], // P2
+    // [2, 1, 1], // P3
+    // [0, 0, 2]]; // P4
+
+    // let request = [[7, 5, 3], // P0 // MAX Matrix
+    // [3, 2, 2], // P1
+    // [9, 0, 2], // P2
+    // [2, 2, 2], // P3
+    // [4, 3, 3]]; // P4
+
+    // let available = [3, 3, 2]; // Available Resources
+
     calculateNeed(P, R, request, allocation);
+    //createTable(P, R);
+    calcBanker(P, R, request, allocation, available);
 }

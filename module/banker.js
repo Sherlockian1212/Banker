@@ -12,26 +12,25 @@ function calcNeed(P, R, request, allocation) {
 
 
 function isSafe(P, R, request, allocation, available) {
-    need = calcNeed(P, R, request, allocation);
-
-    let work = [];
-    for (let i = 0; i < R; i++) {
-        work.push(available[i]);
-    }
+    let need = calcNeed(P, R, request, allocation);
+    let work = [...available];
+    let finish = new Array(P).fill(false);
+    let safeSeq = [];
 
     let count = 0;
     while (count < P) {
         let found = false;
         for (let p = 0; p < P; p++) {
-            if (finish[p] == false) {
+            if (finish[p] === false) {
                 let j;
-                for (j = 0; j < R; j++)
-                    if (need[p][j] > work[j])
+                for (j = 0; j < R; j++) {
+                    if (need[p][j] > work[j]) {
                         break;
+                    }
+                }
 
-
-                if (j == R) {
-                    for (k = 0; k < R; k++) {
+                if (j === R) {
+                    for (let k = 0; k < R; k++) {
                         work[k] += allocation[p][k];
                     }
                     safeSeq[count] = p;
@@ -42,17 +41,15 @@ function isSafe(P, R, request, allocation, available) {
                 }
             }
         }
-        if (found == false) {
-            console.log("System is not in safe state");
-            return false;
+        if (found === false) {
+            console.log("System is not in a safe state");
+            return [];
         }
     }
-    console.log("System is in safe state.\nSafe sequence is: ");
-    for (let i = 0; i < P; i++) {
-        console.log(safeSeq[i] + " ");
-    }
-    return true;
+    console.log("System is in a safe state.\nSafe sequence is: " + safeSeq.join(" "));
+    return safeSeq;
 }
+
 
 module.exports.calcNeed = calcNeed;
 module.exports.isSafe = isSafe;
