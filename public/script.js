@@ -130,6 +130,8 @@ function getAvailable() {
 }
 
 function printNeedTable(need) {
+    const text = document.getElementById("needTable");
+    text.textContent = "Need Table:";
     // Lấy thẻ div để chứa bảng giá trị
     const tableContainer = document.getElementById("needTableContainer");
 
@@ -145,7 +147,7 @@ function printNeedTable(need) {
     const headerRow = document.createElement("tr");
     for (let j = 0; j < need[0].length; j++) {
         const headerCell = document.createElement("th");
-        headerCell.textContent = `Tài nguyên ${j + 1}`;
+        headerCell.textContent = `Resource ${j + 1}`;
         headerRow.appendChild(headerCell);
     }
     table.appendChild(headerRow);
@@ -156,6 +158,82 @@ function printNeedTable(need) {
         for (let j = 0; j < need[i].length; j++) {
             const dataCell = document.createElement("td");
             dataCell.textContent = need[i][j];
+            dataRow.appendChild(dataCell);
+        }
+        table.appendChild(dataRow);
+    }
+
+    // Đưa bảng vào thẻ div
+    tableContainer.appendChild(table);
+}
+
+function printAllocationTable(allocation) {
+    const text = document.getElementById("allocationTable");
+    text.textContent = "Allocation Table:";
+    // Lấy thẻ div để chứa bảng giá trị
+    const tableContainer = document.getElementById("allocationTableContainer");
+
+    // Xóa bảng cũ (nếu có)
+    while (tableContainer.firstChild) {
+        tableContainer.removeChild(tableContainer.firstChild);
+    }
+
+    // Tạo bảng mới
+    const table = document.createElement("table");
+
+    // Tạo tiêu đề cho bảng
+    const headerRow = document.createElement("tr");
+    for (let j = 0; j < allocation[0].length; j++) {
+        const headerCell = document.createElement("th");
+        headerCell.textContent = `Resource ${j + 1}`;
+        headerRow.appendChild(headerCell);
+    }
+    table.appendChild(headerRow);
+
+    // Thêm dữ liệu vào bảng
+    for (let i = 0; i < allocation.length; i++) {
+        const dataRow = document.createElement("tr");
+        for (let j = 0; j < allocation[i].length; j++) {
+            const dataCell = document.createElement("td");
+            dataCell.textContent = allocation[i][j];
+            dataRow.appendChild(dataCell);
+        }
+        table.appendChild(dataRow);
+    }
+
+    // Đưa bảng vào thẻ div
+    tableContainer.appendChild(table);
+}
+
+function printRequestTable(request) {
+    const text = document.getElementById("requestTable");
+    text.textContent = "Request Table:";
+    // Lấy thẻ div để chứa bảng giá trị
+    const tableContainer = document.getElementById("requestTableContainer");
+
+    // Xóa bảng cũ (nếu có)
+    while (tableContainer.firstChild) {
+        tableContainer.removeChild(tableContainer.firstChild);
+    }
+
+    // Tạo bảng mới
+    const table = document.createElement("table");
+
+    // Tạo tiêu đề cho bảng
+    const headerRow = document.createElement("tr");
+    for (let j = 0; j < request[0].length; j++) {
+        const headerCell = document.createElement("th");
+        headerCell.textContent = `Resource ${j + 1}`;
+        headerRow.appendChild(headerCell);
+    }
+    table.appendChild(headerRow);
+
+    // Thêm dữ liệu vào bảng
+    for (let i = 0; i < request.length; i++) {
+        const dataRow = document.createElement("tr");
+        for (let j = 0; j < request[i].length; j++) {
+            const dataCell = document.createElement("td");
+            dataCell.textContent = request[i][j];
             dataRow.appendChild(dataCell);
         }
         table.appendChild(dataRow);
@@ -191,6 +269,61 @@ function calculateNeed(P, R, request, allocation,) {
         });
 }
 
+function printResult(data) {
+    const text = document.getElementById("txtResult");
+    text.textContent = "Result";
+    const resultText = document.getElementById("result");
+
+    if (data === "") {
+        resultText.textContent = "System is not in safe state";
+    } else {
+        let output = "System is in safe state, safe sequence is: ";
+        for (let i = 0; i < data.length-1; i++) {
+            output += `P${data[i]} - `;
+        }
+        output += `P${data[data.length-1]}`;
+        
+        resultText.textContent = output;
+    }
+}
+function printAvailable(available){
+    const text = document.getElementById("availableTable");
+    text.textContent = "Available Table:";
+    // Lấy thẻ div để chứa bảng giá trị
+    const tableContainer = document.getElementById("availableTableContainer");
+
+    // Xóa bảng cũ (nếu có)
+    while (tableContainer.firstChild) {
+        tableContainer.removeChild(tableContainer.firstChild);
+    }
+
+    // Tạo bảng mới
+    const table = document.createElement("table");
+
+    // Tạo tiêu đề cho bảng
+    const headerRow = document.createElement("tr");
+    for (let j = 0; j < available[0].length; j++) {
+        const headerCell = document.createElement("th");
+        headerCell.textContent = `Resource ${j + 1}`;
+        headerRow.appendChild(headerCell);
+    }
+    table.appendChild(headerRow);
+
+    // Thêm dữ liệu vào bảng
+    for (let i = 0; i < available.length; i++) {
+        const dataRow = document.createElement("tr");
+        for (let j = 0; j < available[i].length; j++) {
+            const dataCell = document.createElement("td");
+            dataCell.textContent = available[i][j];
+            dataRow.appendChild(dataCell);
+        }
+        table.appendChild(dataRow);
+    }
+
+    // Đưa bảng vào thẻ div
+    tableContainer.appendChild(table);
+}
+
 function calcBanker(P, R, request, allocation, available) {
     const apiUrl = "http://localhost:5501/api/banker";
 
@@ -210,51 +343,38 @@ function calcBanker(P, R, request, allocation, available) {
         .then((response) => response.json())
         .then((data) => {
             console.log("Processes", data.result); // Kết quả từ API
+            printResult(data.result);
         })
         .catch((error) => {
             console.error("Lỗi:", error);
         });
 }
 
+function calcAvailable(P, R, request, allocation, available) {
+    const apiUrl = "http://localhost:5501/api/available";
 
-function createTable(P, R) {
-    const tableContainer = document.getElementById("tableContainer");
-
-    while (tableContainer.firstChild) {
-        tableContainer.removeChild(tableContainer.firstChild);
-    }
-
-    const table = document.createElement("table");
-
-    const headerRow = document.createElement("tr");
-    const headerCell1 = document.createElement("th");
-    headerCell1.textContent = `Processes`;
-    headerRow.appendChild(headerCell1);
-    const headerCell2 = document.createElement("th");
-    headerCell2.textContent = `Allocation`;
-    headerRow.appendChild(headerCell2);
-    const headerCell3 = document.createElement("th");
-    headerCell3.textContent = `Request`;
-    headerRow.appendChild(headerCell3);
-    const headerCell4 = document.createElement("th");
-    headerCell4.textContent = `Available`;
-    headerRow.appendChild(headerCell4);
-    const headerCell5 = document.createElement("th");
-    headerCell5.textContent = `Need`;
-    headerRow.appendChild(headerCell5);
-    const headerCell6 = document.createElement("th");
-    headerCell6.textContent = `Progress order`;
-    headerRow.appendChild(headerCell6);
-
-    table.appendChild(headerRow);
-
-    // Thêm dữ liệu vào bảng
-
-
-    // Đưa bảng vào thẻ div
-    tableContainer.appendChild(table);
+    fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            P,
+            R,
+            request,
+            allocation,
+            available,
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("available", data.result); // Kết quả từ API
+            printAvailable(data.result);
+        })
+        .catch((error) => {
+            console.error("Lỗi:", error);
+        });
 }
-
 
 function Banker() {
     const P = parseInt(document.getElementById("processes").value);
@@ -262,6 +382,7 @@ function Banker() {
     const request = getRequest();
     const allocation = getAllocation();
     const available = getAvailable();
+
 
     // P = 5; // Number of processes
     // R = 3; // Number of resources
@@ -279,7 +400,10 @@ function Banker() {
 
     // let available = [3, 3, 2]; // Available Resources
 
+    printAllocationTable(allocation);
+    printRequestTable(request);
     calculateNeed(P, R, request, allocation);
-    //createTable(P, R);
     calcBanker(P, R, request, allocation, available);
+    calcAvailable(P, R, request, allocation, available);
+
 }

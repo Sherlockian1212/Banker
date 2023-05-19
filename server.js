@@ -36,6 +36,17 @@ app.post("/api/banker", (req, res) => {
   res.json({ result });
 });
 
+app.post("/api/available", (req, res) => {
+  const P = req.body.P;
+  const R = req.body.R;
+  const request = req.body.request;
+  const allocation = req.body.allocation;
+  const available = req.body.available;
+
+  const result = Banker.calculateWorkMatrix(P, R, request, allocation, available);
+
+  res.json({ result });
+});
 
 app.listen(port, hostname, () => {
   console.log(`Server is listening on http://${hostname}:${port}`);
