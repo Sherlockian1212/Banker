@@ -8,62 +8,72 @@
         <title>Banker’s Algorithm</title>
     </head>
     <body>
-        <h2>Banker’s Algorithm</h2>
+        <h1>Banker’s Algorithm</h1>
+        <div id="select">
+            <div class="op">
+                <label for="processes">Number of processes: </label>
+                <select id="processes">
+                    <!-- Sử dụng vòng lặp để tạo các tùy chọn từ 0 đến 10 -->
+                    <script>
+                    for (var i = 0; i <= 10; i++) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                    </script>
+                </select>
+            </div>
 
-        <label for="processes">Number of processes: </label>
-        <select id="processes">
-            <!-- Sử dụng vòng lặp để tạo các tùy chọn từ 0 đến 10 -->
-            <script>
-                for (var i = 0; i <= 10; i++) {
-                    document.write('<option value="' + i + '">' + i + '</option>');
-                }
-            </script>
-        </select>
+            <div class="op">
+                <label for="resources">Number of resources:</label>
+                <select id="resources">
+                    <!-- Sử dụng vòng lặp để tạo các tùy chọn từ 0 đến 10 -->
+                    <script>
+                    for (var i = 0; i <= 10; i++) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                    </script>
+                </select>
+            </div>
 
-        <br>
+            <div class="btn">
+                <button onclick="createInput()">Input</button>
+            </div>
+        </div>
+        <div class="flextb">
+            <div class="tb">
+                <h2>Allocation</h2>
+                <table id="Allocation" class="table">
+                </table>
+            </div>
+            <div class="tb">
+                <h2>Request</h2>
+                <table id="Request" class="table">
+                </table>
+            </div>
+            <div class="tb">
+                <h2>Available</h2>
+                <table id="Available" class="table">
+                </table>
+            </div>
+        </div>
 
-        <label for="resources">Number of resources:</label>
-        <select id="resources">
-            <!-- Sử dụng vòng lặp để tạo các tùy chọn từ 0 đến 10 -->
-            <script>
-                for (var i = 0; i <= 10; i++) {
-                    document.write('<option value="' + i + '">' + i + '</option>');
-                }
-            </script>
-        </select>
-
-        <br>
-
-        <button onclick="createAllocation()">Allocation </button>
-
-        <table id="Allocation">
-        </table>
-
-        <button onclick="createRequest()">Request </button>
-
-        <table id="Request">
-        </table>
-
-        <button onclick="createAvailable()">Available</button>
-
-        <table id="Available">
-        </table>
-        
         <button onclick="Banker()">Start</button>
-        <h3 id="allocationTable"></h3>
-        <div id="allocationTableContainer"></div>
 
-        <h3 id="requestTable"></h3>
-        <div id="requestTableContainer"></div>
+        <div class="flextb">
+            <h3 id="allocationTable"></h3>
+            <div id="allocationTableContainer"></div>
 
-        <h3 id="needTable"></h3>
-        <div id="needTableContainer"></div>
+            <h3 id="requestTable"></h3>
+            <div id="requestTableContainer"></div>
+
+            <h3 id="needTable"></h3>
+            <div id="needTableContainer"></div>
+            
+            <h3 id="availableTable"></h3>
+            <div id="availableTableContainer"></div>
+        </div>
 
         <h3 id="txtResult"></h3>
         <h3 id="result"></h3>
-
-        <h3 id="availableTable"></h3>
-        <div id="availableTableContainer"></div>
 
 
         <script src="script.js"></script>

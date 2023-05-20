@@ -76,6 +76,21 @@ function createAvailable() {
     }
 }
 
+function createInput(){
+    var ctent = document.querySelector('.flextb');
+    var rows = parseInt(document.getElementById("processes").value);
+    var columns = parseInt(document.getElementById("resources").value);
+    if(rows>0&&columns>0){
+    ctent.classList.remove('open')
+    createAllocation();
+    createAvailable();
+    createRequest();
+    ctent.classList.add('open')
+    } else{
+        alert('Vui lòng nhập giá trị lớn hơn không')
+    }
+}
+
 function getAllocation() {
     var inputs = document.getElementsByClassName("Allocation");
     var rows = parseInt(document.getElementById("processes").value);
@@ -286,6 +301,7 @@ function printResult(data) {
         resultText.textContent = output;
     }
 }
+
 function printAvailable(available){
     const text = document.getElementById("availableTable");
     text.textContent = "Available Table:";
@@ -403,7 +419,7 @@ function Banker() {
     printAllocationTable(allocation);
     printRequestTable(request);
     calculateNeed(P, R, request, allocation);
-    calcBanker(P, R, request, allocation, available);
     calcAvailable(P, R, request, allocation, available);
+    calcBanker(P, R, request, allocation, available);
 
 }
