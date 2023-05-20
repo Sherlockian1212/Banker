@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style.css">
+        <title>Banker’s Algorithm</title>
+    </head>
+    <body>
+        <h1>Banker’s Algorithm</h1>
+        <div id="select">
+            <div class="op">
+                <label for="processes">Number of processes: </label>
+                <select id="processes">
+                    <!-- Sử dụng vòng lặp để tạo các tùy chọn từ 0 đến 10 -->
+                    <script>
+                    for (var i = 0; i <= 10; i++) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                    </script>
+                </select>
+            </div>
+
+            <div class="op">
+                <label for="resources">Number of resources:</label>
+                <select id="resources">
+                    <!-- Sử dụng vòng lặp để tạo các tùy chọn từ 0 đến 10 -->
+                    <script>
+                    for (var i = 0; i <= 10; i++) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                    </script>
+                </select>
+            </div>
+
+            <div class="btn">
+                <button onclick="createInput()">Input</button>
+            </div>
+        </div>
+        <div class="flextb">
+            <div class="tb">
+                <h2>Allocation</h2>
+                <table id="Allocation" class="table">
+                </table>
+            </div>
+            <div class="tb">
+                <h2>Request</h2>
+                <table id="Request" class="table">
+                </table>
+            </div>
+            <div class="tb">
+                <h2>Available</h2>
+                <table id="Available" class="table">
+                </table>
+            </div>
+        </div>
+
+        <div class="btn"><button onclick="Banker()" class="btnstart">Start</button></div>
+
+        <div id="tableresult" class="tbrs">
+            <div class="tb">
+            <h2 id="allocationTable"></h2>
+            <div id="allocationTableContainer"></div>
+            </div>
+             <div class="tb">
+            <h2 id="requestTable"></h2>
+            <div id="requestTableContainer"></div>
+            </div>
+            <div class="tb">
+            <h2 id="needTable"></h2>
+            <div id="needTableContainer"></div>
+            </div>
+            <div class="tb">
+            <h2 id="availableTable"></h2>
+            <div id="availableTableContainer"></div>
+             </div>
+        </div>
+        <h3 id="txtResult"></h3>
+        <h3 id="result"></h3>
+
+
+        <script src="script.js"></script>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+h1{
+    text-align: center;
+}
+#select{
+    display: flex;
+    justify-content: center;
+}
+.op{
+    margin: 10px;
+}
+.btn{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.btn button{
+    border-width: 0;
+    padding: 5px;
+    transition: transform 0.3s
+}
+.btn button:active{
+    transform: scale(0.95);
+}
+.tb{
+    text-align: -webkit-center;
+    margin: 10px;
+}
+select ,input{
+    padding: 8px;
+    border-radius: 5px;
+    border-color: black;
+}
+td{
+    padding: 5px;
+    width: 30px;
+    vertical-align: middle;
+}
+.flextb{
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.flextb.open{
+    display: flex;
+}
+.table{
+    background-color:antiquewhite;
+    border-spacing: 0;
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+}
+h2{
+    box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5);
+    width: fit-content;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+.tbrs{
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.btnstart.open{
+    display: block;
+}
+.tbrs.open{
+    display: flex;
+}
+.btnstart{
+    display: none;
+}
